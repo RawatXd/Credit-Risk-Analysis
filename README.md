@@ -1,153 +1,314 @@
-# 📊 Credit Risk Modelling
+# Credit Risk Scorecard & Probability of Default (PD) Prediction
 
-A machine learning web application that predicts loan default probability and generates a credit score (300–900) for applicants in real time — built with Logistic Regression, feature engineering on 50,000 customer records, and deployed via Streamlit.
-
----
-
-## 🔍 Problem Statement
-
-Financial institutions need an automated, explainable way to assess borrower risk before approving loans. Manual credit evaluation is slow, inconsistent, and prone to bias. This project builds a production-style credit risk pipeline: from raw multi-source data → feature engineering → model training → live scoring via a web UI.
+> An end-to-end Credit Risk Analytics project that develops an interpretable Probability of Default (PD) model using Logistic Regression, Weight of Evidence (WOE), Information Value (IV), and Credit Scorecard techniques to support data-driven lending decisions.
 
 ---
 
-## 🛠️ Tech Stack
+## Project Overview
 
-| Layer | Tools |
-|---|---|
-| Language | Python 3.x |
-| ML Model | Scikit-learn (Logistic Regression) |
-| Data Processing | Pandas, NumPy |
-| Feature Selection | WoE / IV, VIF Analysis |
-| Scaling | MinMaxScaler |
-| Model Persistence | Joblib |
-| Web App | Streamlit |
-| Notebooks | Jupyter |
+Financial institutions process thousands of loan applications every day. Incorrect lending decisions can lead to significant financial losses due to borrower defaults. Therefore, accurately estimating the probability that a borrower will default is one of the most important tasks in credit risk management.
+
+This project simulates a real-world credit underwriting workflow by developing an interpretable credit risk scorecard capable of estimating the **Probability of Default (PD)** for loan applicants. The project emphasizes explainability, regulatory-friendly modelling practices, and business interpretability over purely maximizing predictive performance.
 
 ---
 
-## 📁 Project Structure
+## Business Problem
+
+The objective is to assist financial institutions in answering the following questions:
+
+- Which loan applicants are likely to default?
+- Which customer characteristics contribute most to credit risk?
+- How can borrowers be segmented into Low, Medium, and High Risk groups?
+- How can lending decisions become more consistent using data-driven credit scoring?
+
+The final solution enables banks to:
+
+- Estimate Probability of Default (PD)
+- Generate interpretable credit scores
+- Identify high-risk borrowers
+- Support loan approval and rejection decisions
+- Reduce expected credit losses
+
+---
+
+## Project Objectives
+
+- Perform comprehensive exploratory data analysis.
+- Handle missing values and outliers.
+- Engineer meaningful borrower risk features.
+- Perform feature selection using Weight of Evidence (WOE) and Information Value (IV).
+- Compare multiple machine learning models.
+- Develop an interpretable Logistic Regression-based credit scorecard.
+- Predict Probability of Default (PD).
+- Segment borrowers into risk categories.
+- Deploy the model using Streamlit.
+
+---
+
+## Dataset
+
+The project uses the **German Credit Dataset**, containing demographic, financial, and credit history information for loan applicants.
+
+Example attributes include:
+
+- Age
+- Annual Income
+- Employment Status
+- Loan Amount
+- Loan Duration
+- Existing Credits
+- Credit Utilization
+- Payment History
+- Savings
+- Housing Status
+
+Target Variable:
+
+- Default (1)
+- Non-Default (0)
+
+---
+
+# Project Workflow
 
 ```
-credit-risk-modelling/
+Business Understanding
+        │
+        ▼
+Data Cleaning
+        │
+        ▼
+Exploratory Data Analysis
+        │
+        ▼
+Feature Engineering
+        │
+        ▼
+WOE & IV Transformation
+        │
+        ▼
+Model Comparison
+        │
+        ▼
+Logistic Regression Scorecard
+        │
+        ▼
+Probability of Default
+        │
+        ▼
+Credit Score Generation
+        │
+        ▼
+Risk Segmentation
+        │
+        ▼
+Streamlit Deployment
+```
+
+---
+
+# Feature Engineering
+
+Several borrower risk indicators were engineered to improve predictive performance.
+
+Examples include:
+
+- Debt-to-Income Ratio
+- Credit Utilization
+- Loan-to-Income Ratio
+- Delinquency Ratio
+- Average Days Past Due (DPD)
+- Credit History Length
+- Existing Credit Burden
+
+These engineered variables better represent borrower financial behaviour than the original raw variables.
+
+---
+
+# Feature Selection
+
+Feature selection was performed using industry-standard techniques commonly adopted in credit risk modelling.
+
+Methods used:
+
+- Weight of Evidence (WOE)
+- Information Value (IV)
+- Variance Inflation Factor (VIF)
+- Correlation Analysis
+
+This ensures the final model remains both predictive and interpretable.
+
+---
+
+# Model Comparison
+
+Multiple supervised learning algorithms were trained and evaluated.
+
+Models compared:
+
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
+
+Evaluation metrics included:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+- KS Statistic
+
+Although ensemble methods achieved competitive performance, **Logistic Regression** was selected because of its transparency, explainability, and widespread adoption in regulated banking environments.
+
+---
+
+# Credit Scorecard Development
+
+The final Logistic Regression model was transformed into an interpretable credit scorecard capable of assigning a numerical credit score to each applicant.
+
+Each borrower receives:
+
+- Probability of Default (PD)
+- Credit Score
+- Risk Category
+- Lending Recommendation
+
+Risk Categories:
+
+| Credit Score | Risk Level |
+|--------------|------------|
+| High Score | Low Risk |
+| Medium Score | Medium Risk |
+| Low Score | High Risk |
+
+---
+
+# Model Evaluation
+
+The final model was evaluated using:
+
+- ROC-AUC
+- Precision
+- Recall
+- F1 Score
+- KS Statistic
+- Confusion Matrix
+- ROC Curve
+
+These metrics demonstrate the model's ability to distinguish between defaulting and non-defaulting borrowers.
+
+---
+
+# Streamlit Application
+
+An interactive Streamlit web application was developed that allows users to:
+
+- Enter applicant information
+- Predict Probability of Default
+- Generate Credit Score
+- Display Borrower Risk Category
+- Provide Loan Approval Recommendation
+
+---
+
+# Project Structure
+
+```
+Credit-Risk-Analysis/
+
 │
 ├── artifacts/
-│   └── model_data.joblib          # Trained model + scaler + feature list
-│
-├── dataset/
-│   ├── customers.csv              # 50,000 customer demographic records
-│   ├── loans.csv                  # 50,000 loan application records
-│   └── bureau_data.csv            # 50,000 credit bureau records
-│
-├── credit_risk_model.ipynb        # End-to-end ML pipeline notebook
-├── prediction_helper.py           # Feature preparation + scoring logic
-├── main.py                        # Streamlit app entry point
-└── README.md
+├── data/
+├── notebooks/
+├── models/
+├── helper/
+├── app/
+├── screenshots/
+├── requirements.txt
+├── README.md
+└── streamlit_app.py
 ```
 
 ---
 
-## ⚙️ ML Pipeline Overview
+# Technologies Used
 
-### 1. Data Ingestion & Merging
-Three datasets — `customers`, `loans`, and `bureau_data` — are joined on `cust_id` to create a unified 50,000-row training dataset.
+Programming
 
-### 2. Train-Test Split (Pre-EDA)
-A stratified 75/25 split is performed **before** any EDA or feature engineering to prevent data leakage.
+- Python
 
-### 3. Data Cleaning
-- Missing values in `residence_type` imputed with mode
-- Business-rule-based outlier removal (e.g., `processing_fee / loan_amount > 3%` flagged as invalid)
+Machine Learning
 
-### 4. Feature Engineering
-- `loan_to_income` ratio derived from `loan_amount` and `income`
-- `avg_dpd_per_delinquency` and `delinquency_ratio` computed from bureau fields
-- Categorical features encoded via One-Hot Encoding
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
+- Scikit-Learn
 
-### 5. Feature Selection
-- **VIF Analysis** to drop multicollinear features (`sanction_amount`, `processing_fee`, `gst`, `net_disbursement`, `principal_outstanding`)
-- **WoE / Information Value (IV)** to retain only features with IV > 0.02
+Data Processing
 
-### 6. Model Training & Selection
-Three models benchmarked — Logistic Regression, Random Forest, XGBoost. Logistic Regression selected for its comparable AUC performance and superior interpretability for credit scoring use cases. Final model tuned via `RandomizedSearchCV`.
+- Pandas
+- NumPy
 
-### 7. Credit Score Generation
-Default probability → credit score mapped to [300, 900] range using:
+Visualization
 
-```
-credit_score = 300 + (1 - P_default) × 600
-```
+- Matplotlib
+- Seaborn
 
-| Score Range | Rating |
-|---|---|
-| 300 – 499 | Poor |
-| 500 – 649 | Average |
-| 650 – 749 | Good |
-| 750 – 900 | Excellent |
+Deployment
 
----
+- Streamlit
 
-## 🚀 How to Run
+Feature Engineering
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/credit-risk-modelling.git
-cd credit-risk-modelling
-```
+- Weight of Evidence (WOE)
+- Information Value (IV)
+- VIF
 
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+Version Control
 
-> **requirements.txt** (create this file):
-> ```
-> streamlit
-> scikit-learn
-> pandas
-> numpy
-> joblib
-> ```
-
-### 3. Place the Model Artifact
-Ensure `model_data.joblib` is placed in the `artifacts/` directory.
-
-### 4. Run the App
-```bash
-streamlit run main.py
-```
+- Git
+- GitHub
 
 ---
 
-## 🖥️ App Inputs
+# Future Improvements
 
-| Input | Description |
-|---|---|
-| Age | Applicant age (18–100) |
-| Income | Annual income |
-| Loan Amount | Requested loan amount |
-| Loan Tenure | Duration in months |
-| Avg DPD | Average days past due per delinquency |
-| Delinquency Ratio | % of delinquent months |
-| Credit Utilization Ratio | % of credit limit used |
-| Open Accounts | Number of active loan accounts |
-| Residence Type | Owned / Rented / Mortgage |
-| Loan Purpose | Education / Home / Auto / Personal |
-| Loan Type | Secured / Unsecured |
+The project can be extended by incorporating:
+
+- SQL-based portfolio analysis
+- Power BI Credit Risk Dashboard
+- Expected Loss (PD × LGD × EAD)
+- SHAP Explainability
+- Population Stability Index (PSI)
+- Model Monitoring
+- Basel II / Basel III validation metrics
 
 ---
 
-## 📤 App Output
+# Business Impact
 
-- **Default Probability** — likelihood the applicant will default (e.g., `12.45%`)
-- **Credit Score** — integer score between 300 and 900
-- **Rating** — Poor / Average / Good / Excellent
+This project demonstrates an end-to-end credit risk modelling workflow commonly used within banking and financial institutions.
+
+It highlights practical applications of:
+
+- Credit Risk Analytics
+- Statistical Modelling
+- Probability of Default (PD)
+- Credit Scorecard Development
+- Explainable Machine Learning
+- Data-Driven Lending Decisions
+
+The workflow closely aligns with the responsibilities of a Credit Risk Analyst involved in retail lending, underwriting, and portfolio risk management.
 
 ---
 
-## 📌 Key Design Decisions
+# Author
 
-- **Logistic Regression over XGBoost**: Chosen for interpretability — critical in financial/regulatory contexts where model explainability is required.
-- **Dummy fields for scaling**: The scaler was fitted on all original numeric columns. Unused features are passed as dummy values at inference time to maintain scaling consistency without retraining.
-- **Pre-EDA split**: Prevents EDA insights from inadvertently leaking into feature engineering decisions on test data.
+**Abhishek Rawat**
 
----
+Master's in Operational Research
+
+Python | SQL | Power BI | Machine Learning | Credit Risk Analytics
